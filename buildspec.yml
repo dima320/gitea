@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+       - for d in ./internal/*/ ; do (cd "$d" && go test); done
+       - go get && TAGS="bindata" make build
+#sudo apt install build-essential -y
+#sudo apt install nodejs
+#sudo apt install npm
+artifacts:
+  files:
+    - Procfile
+    - bin/application
+    - bin/custom/conf/app.ini
