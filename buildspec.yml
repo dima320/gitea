@@ -1,14 +1,28 @@
 version: 0.2
 
+env:
+  variables:
+    GO_VERSION: 1.17.6
 phases:
+  install:
+    commands:
+      - wget https://go.dev/dl/go1.17.6.linux-amd64.tar.gz
+      - rm -rf /usr/local/go && tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
+      - export PATH=$PATH:/usr/local/go/bin
+      - curl -sL https://rpm.nodesource.com/setup_12.x | sudo bash -
+      - yum clean all && sudo yum makecache fast
+      - yum install -y gcc-c++ make
+      - yum install -y nodejs
+  pre_build:
+    commands:
+        - echo Start pre_build...
+
   build:
     commands:
-       - go get && TAGS="bindata" make build
-#sudo apt install build-essential -y
-#sudo apt install nodejs
-#sudo apt install npm
+      - echo Start build...
+      - TAGS="bindata" make build
 artifacts:
   files:
     - Procfile
-    - bin/application
-    - bin/custom/conf/app.ini
+    - gitea
+    - custom/conf/app.ini
