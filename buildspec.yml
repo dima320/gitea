@@ -19,3 +19,4 @@ artifacts:
     - Procfile
     - gitea
     - custom/conf/app.ini
+    - .ebextensions/1.config
